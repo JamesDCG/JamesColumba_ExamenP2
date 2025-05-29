@@ -1,35 +1,33 @@
 public class JC_CuentaAhorros extends JC_Cuenta {
-
     private boolean activa;
 
-    public JC_CuentaAhorros(float psaldo, int depositos, int retiros, float tasaanual) {
-        super(psaldo, depositos, retiros, tasaanual);
+    public JC_CuentaAhorros(float saldoInicial, float tasaAnual) {
+        super(saldoInicial, tasaAnual);
+        this.activa = saldoInicial >= 1000;
     }
 
-
-    public void CuentaAhorros (float saldo, float tasa){
-        System.out.println("Saldo en la Cuenta:" + saldo);
-        System.out.println("Tasa anual" + tasa);
-    }
-
-    public boolean isActiva(){
+    public boolean isActiva() {
         return activa;
     }
 
-    public void Depositar(float cantidad) {
-
-        super.Depositar(cantidad);
+    public void depositar(float cantidad) {
+        super.depositar(cantidad);
+        if (getSaldo() >= 1000) {
+            activa = true;
+        }
     }
 
-    public void Retirar(float cantidad) {
-
-        super.Retirar(cantidad);
+    public void retirar(float cantidad) {
+        if (getSaldo() - cantidad >= 500) {
+            super.retirar(cantidad);
+        } else {
+            System.out.println("Saldo mínimo de $500 requerido.");
+        }
     }
 
-    public void Imprimir(){
-        System.out.println("Saldo en la cuenta de ahorros: " + getSaldo());
-        System.out.println("Numero de Depositos: " + getnDepositos());
-        System.out.println("Numero de Retiros: " + getnRetiros());
-        System.out.println("Tasa : " + getTasaAnual());
+    @Override
+    public void imprimir() {
+        super.imprimir();
+        System.out.println("Cuenta activa: " + (isActiva() ? "Sí" : "No"));
     }
 }

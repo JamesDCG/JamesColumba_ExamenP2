@@ -2,25 +2,39 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        JC_CuentaAhorros cuenta = new JC_CuentaAhorros(1000, 5);
 
-        int opcion;
-        do {
-            System.out.println("--- Cuenta de Ahorros ---");
-            System.out.println("1. Numero de Retiros");
-            System.out.println("2. Numero de Depositos");
-            System.out.println("3. Saldo");
+        while (true) {
+            System.out.println("\n--- Menú ---");
+            System.out.println("1. Consultar saldo");
+            System.out.println("2. Depositar");
+            System.out.println("3. Retirar");
             System.out.println("4. Salir");
             System.out.print("Seleccione una opción: ");
-            opcion = sc.nextInt();
-            sc.nextLine();
+            int opcion = scanner.nextInt();
 
             switch (opcion) {
-                case 1 ->System.out.println("Ingrese ");
-                case 2 ->System.out.println("Numero de retiros: " );
-                case 3 ->System.out.println("Numero de depositos: " );
-
+                case 1:
+                    cuenta.imprimir();
+                    break;
+                case 2:
+                    System.out.print("Ingrese la cantidad a depositar: ");
+                    float deposito = scanner.nextFloat();
+                    cuenta.depositar(deposito);
+                    break;
+                case 3:
+                    System.out.print("Ingrese la cantidad a retirar: ");
+                    float retiro = scanner.nextFloat();
+                    cuenta.retirar(retiro);
+                    break;
+                case 4:
+                    System.out.println("Cerrar");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Opción no válida.");
             }
-        } while (opcion != 4);
+        }
     }
 }
